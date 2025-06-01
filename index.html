@@ -3,619 +3,1060 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>미소 인터넷 고객 상담 문자 메시지 템플릿</title>
+    <title>LG U+ 결합 할인 계산기</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb; /* Light gray background */
-        }
-        .template-card {
-            background-color: white;
-            border-radius: 0.75rem; /* 12px */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-bottom: 1.5rem; /* 24px */
-            padding: 1.5rem; /* 24px */
-            transition: box-shadow 0.3s ease-in-out;
-        }
-        .template-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .template-text {
-            white-space: pre-wrap; /* Preserve whitespace and newlines */
-            background-color: #f3f4f6; /* Lighter gray for text background */
-            padding: 1rem; /* 16px */
-            border-radius: 0.5rem; /* 8px */
-            font-size: 0.875rem; /* 14px */
-            line-height: 1.5;
-            color: #374151; /* Dark gray text */
-            overflow-x: auto; /* Handle long lines if any */
-        }
-        .copy-button {
-            background-color: #3b82f6; /* Blue-500 */
-            color: white;
-            padding: 0.5rem 1rem; /* 8px 16px */
-            border-radius: 0.375rem; /* 6px */
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-            margin-top: 1rem; /* 16px */
-        }
-        .copy-button:hover {
-            background-color: #2563eb; /* Blue-600 */
-        }
-        .copy-button.copied {
-            background-color: #10b981; /* Emerald-500 */
-        }
-        h1, h2, h3 {
-            color: #1f2937; /* Gray-800 */
-        }
-        .section-title {
-            margin-bottom: 1rem; /* 16px */
-            padding-bottom: 0.5rem; /* 8px */
-            border-bottom: 2px solid #e5e7eb; /* Gray-200 */
-        }
-        .subsection-title {
-            margin-top: 1.5rem; /* 24px */
-            margin-bottom: 0.75rem; /* 12px */
-            color: #4b5563; /* Gray-600 */
-        }
-        /* Custom scrollbar for template text area */
-        .template-text::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        .template-text::-webkit-scrollbar-track {
-            background: #e5e7eb; /* Gray-200 */
-            border-radius: 0.5rem;
-        }
-        .template-text::-webkit-scrollbar-thumb {
-            background: #9ca3af; /* Gray-400 */
-            border-radius: 0.5rem;
-        }
-        .template-text::-webkit-scrollbar-thumb:hover {
-            background: #6b7280; /* Gray-500 */
-        }
-        .card-info-item {
-            margin-bottom: 0.25rem;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; /* slate-50 */ }
+        .input-group { margin-bottom: 1.5rem; }
+        .input-label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #334155; /* slate-700 */ }
+        .input-field, .select-field { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1; /* slate-300 */ border-radius: 0.375rem; box-shadow: sm; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+        .input-field:focus, .select-field:focus { border-color: #ec4899; /* pink-500 */ outline: none; box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25); }
+        .input-field:disabled, .select-field:disabled { background-color: #e2e8f0; /* slate-200 */ cursor: not-allowed; opacity: 0.7; }
+        .btn-primary { background-color: #ec4899; /* pink-500 */ color: white; padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 600; transition: background-color 0.3s ease; }
+        .btn-primary:hover { background-color: #db2777; /* pink-600 */ }
+        .btn-secondary { background-color: #64748b; /* slate-500 */ color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color 0.3s ease; }
+        .btn-secondary:hover { background-color: #475569; /* slate-600 */ }
+        .section-title { font-size: 1.5rem; font-weight: 700; color: #c026d3; /* fuchsia-600 */ margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f0abfc /* fuchsia-300 */;}
+        .result-card { background-color: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); margin-bottom: 1.5rem; }
+        .result-label { color: #475569; /* slate-600 */ }
+        .result-value { color: #1e293b; /* slate-800 */ font-weight: 600;}
+        .total-value { color: #d946ef; /* fuchsia-500 */ font-size: 1.5rem; font-weight: 700;}
+        .mobile-line-item { border: 1px solid #e2e8f0; /* slate-200 */ padding: 1rem; border-radius: 0.375rem; margin-bottom: 0.75rem; }
+        .radio-label { margin-right: 1rem; margin-bottom: 0.5rem; display: inline-flex; align-items: center; cursor: pointer;}
+        .radio-input { margin-right: 0.5rem; accent-color: #ec4899; /* pink-500 */ }
+        .info-box { background-color: #fefce8; /* yellow-50 */ border-left: 4px solid #eab308; /* yellow-500 */ padding: 1rem; margin-bottom:1.5rem; font-size: 0.875rem; color: #713f12; /* yellow-800 */}
+        .info-box p { margin-bottom: 0.5rem; }
+        .info-box a { color: #854d0e; font-weight: 500; text-decoration: underline;}
+        .info-box a:hover { color: #713f12;}
+        .info-box ul { padding-left: 1.25rem; list-style-type: disc; margin-top: 0.5rem;}
+        .info-box ul ul { padding-left: 1rem; list-style-type: circle;}
+        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 20px; margin-left: 10px; vertical-align: middle;}
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px;}
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%;}
+        input:checked + .slider { background-color: #ec4899; /* pink-500 */ }
+        input:checked + .slider:before { transform: translateX(20px); }
+        .discount-details { background-color: #fce7f3; /* pink-100 */ border: 1px solid #f9a8d4; /* pink-300 */ padding: 0.75rem; border-radius: 0.375rem; font-size:0.875rem; }
+        .discount-details ul { padding-left: 1.25rem; list-style-type: disc; margin-left: 0.5rem;}
+        .discount-details ul ul { padding-left: 1rem; list-style-type: circle; }
+        .discount-details table { width: 100%; margin-bottom: 0.5rem; }
+        .discount-details th, .discount-details td { padding: 0.25rem 0.5rem; text-align: left; border: 1px solid #fbcfe8; /* pink-200 */ }
+        .discount-details th { background-color: #fdf2f8; /* pink-50 */ }
+        .summary-item { margin-bottom: 0.25rem; }
+        .message-script-area { width: 100%; min-height: 100px; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.375rem; font-size: 0.875rem; white-space: pre-wrap; word-wrap: break-word; }
+        .copy-button-container { text-align: right; margin-top: 0.5rem; }
+        .copy-feedback { font-size: 0.75rem; color: green; margin-left: 0.5rem; }
     </style>
 </head>
-<body class="p-4 sm:p-6 md:p-8">
-    <div class="container mx-auto max-w-4xl">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold mb-2">미소 인터넷 고객 상담 문자 메시지 템플릿 모음</h1>
-            <p class="text-md sm:text-lg text-gray-600">이 페이지는 미소 인터넷 상담사님들이 고객 상황에 맞춰 활용할 수 있는 문자 메시지 템플릿을 모아놓은 곳입니다. 각 템플릿은 쉽게 복사하여 사용하실 수 있도록 제공됩니다.</p>
-        </header>
+<body class="text-slate-800">
+    <header class="bg-pink-700 text-white p-6 shadow-md">
+        <div class="container mx-auto max-w-4xl">
+            <h1 class="text-3xl font-bold text-center">LG U+ 결합 할인 계산기</h1>
+            <p class="text-center text-pink-200 mt-1">선택하신 서비스와 할인 유형에 따른 예상 요금을 계산해 보세요.</p>
+        </div>
+    </header>
 
-        <main>
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">1. 초기 문의 및 연결 시도</h2>
+    <main class="container mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
+        <section id="inputSection" class="mb-8">
+            <div class="info-box">
+                <p class="font-semibold text-amber-700">⚠️ 민감정보</p>
+                <p><a href="https://miso.kr/booking/forms/secure-details?querystring=고객님 전화번호" target="_blank">https://miso.kr/booking/forms/secure-details?querystring=고객님 전화번호</a></p>
+                <p class="text-sm">ㄴ> 위 링크를 고객에게 문자로 전송해주세요. (아래 스크립트 복사 기능 이용)</p>
+                <hr class="my-2 border-yellow-300">
+                <p><strong>참고 스프레드시트:</strong> <a href="https://docs.google.com/spreadsheets/d/10d21RrhIPBiJr7RZIHnk0h1dB4GvTEcHCuXSyFYw1M4/edit?gid=0#gid=0" target="_blank">바로가기</a></p>
+            </div>
+
+            <h2 class="section-title">1. 서비스 선택 (3년 약정 기준, VAT 포함)</h2>
+            <p class="mb-6 text-sm text-slate-600">아래 항목들을 선택하거나 입력해주세요. 모든 요금은 LG U+ 표준 3년 약정, 부가세 포함 정가를 기준으로 합니다.</p>
+            
+            <div class="input-group">
+                <label class="input-label">인터넷 유형 선택</label>
+                <div class="flex items-center space-x-4">
+                    <label class="radio-label"><input type="radio" name="internetType" value="bundle" class="radio-input" checked> 인터넷 + TV 번들</label>
+                    <label class="radio-label"><input type="radio" name="internetType" value="standalone" class="radio-input"> 인터넷 단독</label>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="input-group">
+                    <label for="internetPlan" class="input-label">인터넷 요금제</label>
+                    <select id="internetPlan" class="select-field">
+                        <option value="none">선택 안함</option>
+                        {/* Options will be populated by JavaScript */}
+                    </select>
+                    <p class="text-xs text-slate-500 mt-1" id="internetNotes">참고: WiFi 공유기 포함.</p>
+                </div>
                 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">1.1. 최초 연결 시도 - 부재중 (부재 FU ❌)</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1: 기본 혜택 안내 (연결시도 - 부재 문자)</h4>
-                        <div id="template1-1-1" class="template-text">[미소] 인터넷 가입 혜택 안내 드립니다!
-안녕하세요, 고객님!인터넷 상담 요청 주셔서 연락드렸지만, 잠시 부재중이셔서 문자로 안내드립니다 😊지금 가입 시✅ 사은품 최대 47만원 +✅ 통신요금 결합 할인 혜택 가능해요!필요하신 정보만 간단하게 안내드릴 수 있어요.👉 편하신 상담 방법 알려주세요!
-📞 통화 원하시면 시간 남겨주시고
-📩 문자로 원하시면 ‘네’ 라고만 회신주셔도 바로 상담 도와드릴게요 :)
-부담 없이 편하게 연락주세요!
-지금 남겨주시면 가장 빠른 혜택 안내 도와드릴게요!
-감사합니다.미소 전담 상담사 김홍식 드림.</div>
-                        <button class="copy-button" data-target="template1-1-1">복사하기</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 2: 맞춤 요금제 및 비교 안내 (첫 부재중)</h4>
-                        <div id="template1-1-2" class="template-text">[미소] 😊 안녕하세요, 고객님! 미소인터넷 상담사입니다. 인터넷 가입 특별 할인과 맞춤 요금제 안내차 연락드렸는데 부재중이셔서 문자 남겨요. 📞
-SK/KT/LG 꼼꼼 비교! 고객님께 딱 맞는 결합 상품으로 최대 현금 사은품 + 월 요금 대폭 절감 혜택을 찾아드립니다! 💰✨ 잠깐 상담으로 더 큰 만족을 얻으세요! 😉
-편하실 때 전화주시거나, 문자로 문의하셔도 좋습니다. 빠르고 친절하게 안내드릴게요. 고객님께 기분 좋은 미소를 드리는 미소인터넷! 😊 연락 기다리겠습니다.
-미소인터넷 상담사 드림 💕</div>
-                        <button class="copy-button" data-target="template1-1-2">복사하기</button>
-                    </div>
+                <div class="input-group">
+                    <label for="tvPlan" class="input-label">U+tv 요금제 (1번째 TV)</label>
+                    <select id="tvPlan" class="select-field">
+                        <option value="none">선택 안함</option>
+                        {/* Options will be populated by JavaScript */}
+                    </select>
+                     <p class="text-xs text-slate-500 mt-1">참고: 위 요금은 셋톱박스 포함, 인터넷 결합 시 3년 약정 기준입니다.</p>
                 </div>
 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">1.2. 이전 문의 고객 - 재연락</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1: 상담 재요청 (재연락 문자)</h4>
-                        <div id="template1-2-1" class="template-text">[미소] 인터넷 가입 상담
-안녕하세요, 고객님!
-이전 미소를 통해 인터넷 가입 상담 요청주시어 다시 연락드립니다.가입 시점 최대 혜택과 사용하시는 통신사에 따라 결합 안내 및 월요금 간단하게 상담 도와드리겠습니다.상담 가능하신 시간 말씀해주시면 연락드리겠습니다.문자로도 간단하게 상담 진행 가능하오니 편하게 연락주세요~감사합니다.운영시간 오전 8시 ~ 오후 10시까지</div>
-                        <button class="copy-button" data-target="template1-2-1">복사하기</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">2. 세일즈 진행 및 팔로우업</h2>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">2.1. 부재중 세일즈 팔로우업</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">2.1.1. 반복 부재 시 - 혜택 강조 (세일즈 FU 💰 / 세일즈 부재 FU 💰❌)</h4>
-                        <div id="template2-1-1" class="template-text">[미소] 😊 고객님, 안녕하세요! 미소인터넷 상담사입니다.
-혹시 계속 바쁘신가요? 😥 이전에 안내드렸던 인터넷 가입 특별 혜택 관련해서 다시 한번 연락드렸는데, 오늘도 연결이 어려워 문자 남깁니다. 📞
-고객님께 딱 맞는 맞춤 결합 할인으로 가장 합리적인 월 요금을 설계해 드리고, 숨어있는 할인과 최대 혜택까지 꼼꼼하게 챙겨드리고 싶어요! 🎁✨ 잠시만 시간 내주시면, 고객님께 꼭 맞는 플랜을 찾아드릴 수 있습니다.
-통화가 계속 어려우시면 부담 없이 문자로 궁금한 점이나 연락 편한 시간 알려주세요. 신속하고 친절하게 답변드리겠습니다. 😊
-고객님 통신비에 꼭 환한 미소를 더해드릴 수 있도록, 미소인터넷이 최선을 다하겠습니다! 연락 기다릴게요.
-미소인터넷 상담사 드림 💕</div>
-                        <button class="copy-button" data-target="template2-1-1">복사하기</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">2.1.2. 약속된 통화 부재 시 - 재안내 (세일즈 FU 💰💰 / 세일즈 부재 FU 💰❌💰❌)</h4>
-                        <div id="template2-1-2" class="template-text">[미소] 😊 안녕하세요, 미소인터넷 상담사 입니다.
-다시 통화드리기로 약속하셨어서 연락드렸어요. 그런데 지금은 바쁘신지 연결이 어려워 아쉬운 마음에 문자 남깁니다. 📞
-혹시 바쁘셔서 잠시 잊으셨을까 봐요! 안내드렸던 특별 월 요금 할인과 역대급 사은품 혜택🎁이 혹시라도 변경되기 전에 고객님께 꼭 확정해 드리고 싶거든요. 다시 한번 꼼꼼하게 챙겨드릴게요! ✨
-잠깐이라도 괜찮으실 때 편하게 전화 주시거나, 통화 괜찮으신 시간 알려주시면 제가 다시 연락드리겠습니다. 간단한 궁금증이나 다음 절차 안내는 문자로도 얼마든지 가능하니 부담 갖지 마시고 말씀해주세요! 😉
-미소인터넷은 고객님의 만족스러운 인터넷 시작을 처음부터 끝까지 기분 좋게 도와드리고 싶습니다! 😊 연락 기다리고 있겠습니다.
-오늘도 미소 가득한 하루 보내세요! 미소인터넷 상담사 드림 💕</div>
-                        <button class="copy-button" data-target="template2-1-2">복사하기</button>
-                    </div>
-                     <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">2.1.3. 약속된 통화 반복 부재 시 - 비교 제안 (세일즈 FU 💰💰💰 / 세일즈 부재 FU 💰❌💰❌💰❌)</h4>
-                        <div id="template2-1-3" class="template-text">[미소인터넷] 😊 안녕하세요, 고객님! 미소인터넷 상담사입니다. 다시 통화드리기로 약속하셨는데, 혹시 바쁘셨을까요? 연결이 어려워 아쉬운 마음에 문자 남겨드려요. 📞
-여러 곳 꼼꼼히 비교해보고 결정하시는 중이실 텐데, 현명한 선택 응원합니다! 👍 저희 미소인터넷을 포함해서 꼼꼼하게 살펴보시는 만큼, 가장 만족스러운 선택을 하시리라 믿어요.
-혹시 비교하시면서 저희가 안내드렸던 특별 월 요금 할인과 역대급 사은품 혜택🎁에 대해 다시 궁금한 점이 생기셨거나, 다른 곳 조건과 비교하며 더 자세히 확인하고 싶은 부분이 있으시다면 주저 마시고 언제든 편하게 문의해주세요! 고객님의 입장에서 한 번 더 명확하게 비교 설명해 드릴게요. ✨
-이 좋은 혜택이 혹시라도 변동되어 아쉬움 남지 않으시도록, 고객님께 꼭 챙겨드리고 싶은 마음이랍니다. 😊
-잠깐이라도 괜찮으실 때 편하게 전화 주시거나, 통화 괜찮으신 시간 알려주시면 제가 다시 연락드리겠습니다. 간단한 질문은 문자로도 얼마든지 환영입니다! 😉
-미소인터넷은 고객님께서 복잡한 비교 과정 없이도, 가장 기분 좋은 조건으로 인터넷을 시작하실 수 있도록 처음부터 끝까지 미소로 함께하겠습니다! 연락 기다릴게요.
-오늘도 미소 가득한 하루 보내세요! 미소인터넷</div>
-                        <button class="copy-button" data-target="template2-1-3">복사하기</button>
-                    </div>
+                <div class="input-group hidden" id="tvStbGroup"> 
+                    <label for="tvStb" class="input-label">U+tv 셋톱박스 (1번째 TV)</label>
+                    <select id="tvStb" class="select-field">
+                        <option value="UHD4" data-price="0">UHD4 (기본 포함 가정)</option>
+                    </select>
                 </div>
 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">2.2. 상품 제안 후 - 최종 결정 요청</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1: 최종 안내 및 결정 요청 (상품제안 후 - 부재 문자)</h4>
-                        <div id="template2-2-1" class="template-text">[미소] 인터넷 가입 혜택 관련 최종 안내드립니다!
-고객님께 안내드렸던 조건(통신사, 결합 여부, 월요금, 사은품 등)으로
-지금 가입 가능하신 상태입니다 😊
-혜택 적용 및 설치 일정 확정을 위해
-고객님의 최종 의사만 기다리고 있습니다.
-👉 간단히 ‘진행할게요’ 또는 ‘보류할게요’로만 회신 주셔도 괜찮습니다!
-📞 통화 원하시면 시간 남겨주셔도 됩니다.
-※ 현재 조건은 통신사 사은품 소진 또는 정책 변경 시 달라질 수 있습니다.
-희망하시는 설치일자에 설치받으시려면 빠른 접수가 필요합니다.
-희망 설치일자인 05-31에 진행하려면 회신주세요 :D.
-잠깐의 회신으로 가장 좋은 조건으로 마무리 도와드릴 수 있습니다.
-감사합니다.미소 전담 상담사 김홍식 드림.</div>
-                        <button class="copy-button" data-target="template2-2-1">복사하기</button>
-                    </div>
+                <div class="input-group">
+                    <label for="additionalTvPlan" class="input-label">추가 U+tv 선택 (2번째 TV)</label>
+                    <select id="additionalTvPlan" class="select-field">
+                        <option value="none">선택 안함</option>
+                        {/* Options will be populated by JavaScript */}
+                    </select>
+                     <p class="text-xs text-slate-500 mt-1">참고: 추가 TV 요금은 플랜과 셋톱박스 임대료가 포함된 총 금액입니다.</p>
                 </div>
-            </section>
-
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">3. 가입 절차 안내 (접수 FU 📝)</h2>
                 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">3.1. 통신사별 결합 방법 안내</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">3.1.1. SK 결합 방법 안내</h4>
-                        <div id="template3-1-1" class="template-text">[미소] SK 결합 방법 안내
-고객님, SK브로드밴드 인터넷 설치 후에 결합을 따로 진행해주셔야 합니다!
-■ SK 본사 고객센터 106번으로 전화하셔서 "인터넷과 (SKT 휴대폰/TV) 결합 신청합니다."라고 말씀해주세요.
-■ 결합 할인 적용 위해 꼭 잊지 말고 결합 신청해주세요!
-감사합니다.
-미소 전담 상담사 김홍식 드림.</div>
-                        <button class="copy-button" data-target="template3-1-1">복사하기</button>
+                <div class="input-group">
+                    <label for="phonePlan" class="input-label">인터넷전화 요금제 (선택)</label>
+                    <select id="phonePlan" class="select-field">
+                        <option value="none" selected>선택 안함</option>
+                        {/* Options will be populated by JavaScript */}
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group mt-6">
+                <label class="input-label">모바일 회선 정보 (결합 할인에 영향)</label>
+                <div class="flex items-center mb-2">
+                    <label for="mobileLinesCount" class="mr-2 text-sm text-slate-700">결합할 모바일 회선 수:</label>
+                    <input type="number" id="mobileLinesCount" min="0" max="10" value="0" class="input-field w-20 text-center">
+                </div>
+                <div id="mobileLinesContainer" class="space-y-3"></div>
+                 <p class="text-xs text-slate-500 mt-1">참고: '참쉬운 가족결합'은 최대 10회선, '투게더 결합'은 최대 5회선까지 휴대폰 결합 가능.</p>
+            </div>
+        </section>
+
+        <section id="discountTypeSection" class="mb-8">
+            <h2 class="section-title">2. 결합 할인 유형 선택</h2>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <p class="mb-4 text-sm text-slate-600">가장 유리한 할인 유형을 선택하거나, 각 유형별 예상 요금을 비교해보세요. (인터넷 요금 할인 기준)</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2">
+                    <div class="flex items-center">
+                        <label class="radio-label"><input type="radio" name="discountType" value="none" class="radio-input" checked> 결합할인 없음</label>
+                        </div>
+                    <div class="flex items-center">
+                        <label class="radio-label"><input type="radio" name="discountType" value="cham_family" class="radio-input"> 참쉬운 가족결합</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="chamFamilyDetailsToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="ml-1 text-xs text-slate-500">(상세보기)</span>
                     </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">3.1.2. KT 결합 방법 안내</h4>
-                        <div id="template3-1-2" class="template-text">[미소] KT 결합 방법 안내
-고객님, KT 인터넷 설치 후에 결합을 따로 진행해주셔야 합니다!
-■ KT 본사 고객센터 100번으로 전화하셔서 "인터넷과 (KT 휴대폰/TV) 결합 신청합니다."라고 말씀해주세요.
-■ 결합 할인 적용 위해 꼭 잊지 말고 결합 신청해주세요!
-감사합니다.
-미소 전담 상담사 김홍식 드림.</div>
-                        <button class="copy-button" data-target="template3-1-2">복사하기</button>
+                    <div class="flex items-center">
+                        <label class="radio-label"><input type="radio" name="discountType" value="together_bundle" class="radio-input"> 투게더 결합</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="togetherDetailsToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="ml-1 text-xs text-slate-500">(상세보기)</span>
                     </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">3.1.3. LG U+ 결합 방법 안내</h4>
-                        <div id="template3-1-3" class="template-text">[미소] LG U+ 결합 방법 안내
-고객님, LG U+ 인터넷 설치 후에 결합을 따로 진행해주셔야 합니다!
-■ LG U+ 본사 고객센터 101번으로 전화하셔서 "인터넷과 (LG U+ 휴대폰/TV) 결합 신청합니다."라고 말씀해주세요.
-■ 결합 할인 적용 위해 꼭 잊지 말고 결합 신청해주세요!
-감사합니다.
-미소 전담 상담사 김홍식 드림.</div>
-                        <button class="copy-button" data-target="template3-1-3">복사하기</button>
+                    <div class="flex items-center">
+                        <label class="radio-label"><input type="radio" name="discountType" value="internet_family_all_together" class="radio-input"> 인터넷 가족끼리 다모여 결합</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="internetFamilyDetailsToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="ml-1 text-xs text-slate-500">(상세보기)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <label class="radio-label"><input type="radio" name="discountType" value="mvno_bundle" class="radio-input"> 알뜰폰 결합</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="mvnoLGUDetailsToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="ml-1 text-xs text-slate-500">(상세보기)</span>
                     </div>
                 </div>
 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">3.2. KT 본인 인증 요청</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1</h4>
-                        <div id="template3-2-1" class="template-text">[KT 인터넷 가입 안내] 고객님, 안녕하세요. KT 인터넷 최종 신청을 위해 본인인증이 필요합니다. 잠시 후 고객님의 휴대폰 번호로 인증번호를 문자 발송해 드리겠습니다. 문자 받으시면 확인 후 인증번호를 저에게 알려주시면 감사하겠습니다. 문의사항 있으시면 언제든 편하게 연락주세요.</div>
-                        <button class="copy-button" data-target="template3-2-1">복사하기</button>
-                    </div>
+                <div id="chamFamilyDetailsContainer" class="mt-3 hidden discount-details">
+                    <p class="font-semibold mb-1">참쉬운 가족결합 상세:</p>
+                    <p>예상 인터넷 할인 (휴대폰 1대 이상 결합 시): <span id="detailCfInternetDiscount" class="font-bold">0</span>원</p>
+                    <p class="text-xs text-pink-700">실제 휴대폰 할인은 각 휴대폰 요금제 및 결합 대수에 따라 별도 적용됩니다 (최대 10회선).</p>
+                    <hr class="my-2 border-pink-300">
+                    <p class="text-xs mt-2 mb-1 text-pink-700 font-semibold">주요 참고사항:</p>
+                    <ul class="list-disc text-xs space-y-0.5">
+                        <li>조건 없이 가족이 모이면 할인을 받는 결합 상품.</li>
+                        <li>최대 인터넷 3회선 + 휴대폰 10회선 결합 가능.</li>
+                        <li>휴대폰 할인은 2대부터 적용. (요금제 구간별 할인액 상이: 2,200원 ~ 8,800원/대)</li>
+                        <li>인터넷 할인은 휴대폰 1대 이상 결합 시 적용. (100M: 5,500원, 500M: 9,900원, 1G: 13,200원)</li>
+                        <li>인터넷과 휴대폰 명의자 달라도 결합 가능 (가족관계 증빙 필요).</li>
+                        <li>알뜰폰 결합 시, 결합 내 알뜰폰 휴대폰 번호 개수 X U+ 휴대폰에 440원 추가 할인 제공 가능.</li>
+                    </ul>
                 </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">3.3. LGU+ 본인 인증 요청</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1</h4>
-                        <div id="template3-3-1" class="template-text">[LG U+ 인터넷 가입 안내] 고객님, 안녕하세요. LG U+ 인터넷 가입 신청을 위해 본인인증이 필요합니다. 잠시 후 LG U+ 접수처(1800-XXXX 또는 1644-XXXX ) 번호로 고객님께 전화드릴 예정입니다. 전화 받으셔서 간단한 본인인증 절차를 진행해 주시면 감사하겠습니다. 혹시 통화가 어려우시거나 특정 시간대에 통화가 가능하시면 알려주세요. 해당 내용을 전달해 놓겠습니다.) 문의사항 있으시면 언제든 편하게 연락주세요.</div>
-                        <button class="copy-button" data-target="template3-3-1">복사하기</button>
-                    </div>
+                <div id="togetherDetailsContainer" class="mt-3 hidden discount-details">
+                    <p class="font-semibold mb-1">투게더 결합 상세:</p>
+                    <p>예상 인터넷 할인: <span id="detailTgInternetDiscount" class="font-bold">0</span>원</p>
+                    <p class="text-xs text-pink-700">휴대폰 할인은 결합 회선 수에 따라 각 휴대폰에 적용 (인당 10,000원 ~ 20,000원, 최대 5회선).</p>
+                    <hr class="my-2 border-pink-300">
+                    <p class="text-xs mt-2 mb-1 text-pink-700 font-semibold">주요 참고사항:</p>
+                    <ul class="list-disc text-xs space-y-0.5">
+                        <li>조건: 인터넷 500M 이상 & 휴대폰 월 85,000원 이상 요금제 이용 시.</li>
+                        <li>대상: 가족, 친구, 지인 모두 결합 가능.</li>
+                        <li>인터넷 할인: 11,000원 (100M 인터넷 결합 불가).</li>
+                        <li>결합 한도: 최대 인터넷 5회선, 휴대폰 5회선.</li>
+                    </ul>
                 </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">3.4. SKB 본인 인증 요청</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1</h4>
-                        <div id="template3-4-1" class="template-text">[SK브로드밴드 인터넷 가입 안내] 고객님, 안녕하세요. SK브로드밴드 인터넷 가입 신청을 위해 본인인증이 필요합니다. 잠시 후 SK브로드밴드 접수처(02-1644-XXXX)에서 고객님께 전화드릴 예정입니다. 해당 전화 꼭 받으셔서 인증 절차를 진행해 주시면 감사하겠습니다. 혹시 지금 통화가 어려우시거나 따로 인증 가능한 시간대가 있으시면 저에게 말씀해 주세요. 접수처에 해당 내용을 전달해 놓겠습니다. 문의사항 있으시면 언제든 편하게 연락주세요.</div>
-                        <button class="copy-button" data-target="template3-4-1">복사하기</button>
-                    </div>
+                <div id="internetFamilyDetailsContainer" class="mt-3 hidden discount-details">
+                    <p class="font-semibold mb-1">인터넷 가족끼리 다모여 결합 상세:</p>
+                    <p>예상 추가 인터넷 할인 (자회선): <span id="detailIfInternetDiscount" class="font-bold">0</span>원</p>
+                    <hr class="my-2 border-pink-300">
+                    <p class="text-xs mt-2 mb-1 text-pink-700 font-semibold">주요 참고사항:</p>
+                    <ul class="list-disc text-xs space-y-0.5">
+                        <li>조건: 본인 또는 직계가족의 기존 U+ 인터넷(모회선) 사용 시, 신규 장소 추가 회선(자회선)에 할인.</li>
+                        <li>할인액 (자회선 인터넷): 5,500원.</li>
+                        <li>결합 한도: 모회선 1개 + 자회선 10개.</li>
+                        <li>타 결합과 중복 불가.</li>
+                    </ul>
                 </div>
-            </section>
-
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">4. 장기 미응답 고객 관리 (LOST FU 🚫)</h2>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">4.1. 일반 관심도 확인</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1</h4>
-                        <div id="template4-1-1" class="template-text">안녕하세요! 고객님께 미소와 행복을 드리는 미소 인터넷 😊 입니다.
-다름이 아니라, 이전에 문의주셨던 SK/KT/LG 인터넷 서비스 관련하여 안내차 연락드렸으나 혹시 바쁘셨을까요? 📞
-혹시 인터넷 설치 관련하여 아직 관심 있으시거나 다른 궁금한 점이 있으시다면, 주저 마시고 편하게 회신 또는 전화 부탁드립니다. 💖
-만약 이미 다른 곳에서 만족스럽게 해결되셨다면, 살짝 알려주시면 정말 감사하겠습니다! 🙏
-오늘도 활짝 웃는 😊 좋은 하루 보내시길 바랍니다! ✨</div>
-                        <button class="copy-button" data-target="template4-1-1">복사하기</button>
-                    </div>
+                <div id="mvnoLGUDetailsContainer" class="mt-3 hidden discount-details">
+                    <p class="font-semibold mb-1">알뜰폰 결합 상세:</p>
+                    <p>예상 인터넷 할인: <span id="detailMvnoLGUInternetDiscount" class="font-bold">0</span>원</p>
+                    <hr class="my-2 border-pink-300">
+                    <p class="text-xs mt-2 mb-1 text-pink-700 font-semibold">주요 참고사항:</p>
+                    <ul class="list-disc text-xs space-y-0.5">
+                        <li>계약된 알뜰 통신사 및 요금제만 결합 가능.</li>
+                        <li>인터넷 할인 혜택 (휴대폰 요금 할인 없음):
+                            <ul>
+                                <li>100M 인터넷 + 알뜰폰: 5,500원 할인</li>
+                                <li>500M 인터넷 + 알뜰폰: 9,900원 할인</li>
+                                <li>1G 인터넷 + 알뜰폰: 13,200원 할인</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+        </section>
 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">4.2. 고민 중인 고객 대상 - 지원 및 정보 제공</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">템플릿 1</h4>
-                        <div id="template4-2-1" class="template-text">[미소인터넷] 😊 안녕하세요, 고객님! 미소인터넷 상담사입니다. 지난번 통화 때 인터넷 설치를 아직 고민 중이라고 말씀 주셨죠. 혹시 지금도 계속 생각 중이실까요? 중요한 결정이시니만큼 충분한 시간을 갖고 신중하게 선택하시는 것, 저희도 충분히 이해하고 존중합니다. 👍
-혹시 인터넷이 있으면 생활이 어떻게 달라질 수 있는지, 또는 어떤 경우에 인터넷이 정말 유용하게 활용될 수 있는지 등 아직 확신이 서지 않아 고민이시라면, 언제든 부담 갖지 마시고 저에게 편하게 말씀해주세요. 😊 고객님의 현재 상황과 필요에 맞춰 객관적인 정보로 함께 고민해 드릴 수 있답니다. (결정 강요나 부담은 전혀 없으니 안심하세요! 😉)
-만약 나중에라도 인터넷 설치를 고려하시게 된다면, 저희 미소인터넷이 고객님께 가장 편리하고 만족스러운 선택을 하실 수 있도록 좋은 정보와 맞춤 혜택으로 준비하고 기다리고 있겠습니다. ✨
-혹시 더 궁금한 점이나 생각 있으시면 언제든 편하게 전화 주시거나, 통화 괜찮으신 시간 알려주시면 제가 다시 연락드리겠습니다. 간단한 내용은 문자로도 편하게 문의주시고요!
-고객님의 모든 결정에 미소가 함께하시기를 바라며, 저희 미소인터넷은 언제나 열린 마음으로 고객님을 기다리겠습니다. 오늘도 편안한 하루 보내세요! 미소인터넷 드림 💕</div>
-                        <button class="copy-button" data-target="template4-2-1">복사하기</button>
-                    </div>
+        <section id="installationSection" class="mb-8">
+            <h2 class="section-title">3. 설치 옵션</h2>
+            <div class="input-group bg-white p-6 rounded-lg shadow">
+                <label class="input-label">설치 희망 시점 (설치비 변동)</label>
+                <div class="space-y-2">
+                    <label class="radio-label"><input type="radio" name="installationTime" value="weekday" class="radio-input" checked> 평일 주간</label>
+                    <label class="radio-label"><input type="radio" name="installationTime" value="weekend" class="radio-input"> 주말/야간 (할증 적용)</label>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">5. 추가 정보 및 링크</h2>
+        <div class="text-center mb-8">
+            <button id="calculateButton" class="btn-primary text-lg">예상 요금 계산하기</button>
+        </div>
 
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">5.1. 가용조회</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">헬로비전 가용조회</h4>
-                        <div id="additional-info-5-1-1" class="template-text">🌏 <a href="https://www.lghellovision.net/customer/area/joinAreaList.do" target="_blank" class="text-blue-600 hover:underline">헬로비전 가용조회 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-1-1" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">스카이라이프 가용조회</h4>
-                        <div id="additional-info-5-1-2" class="template-text">🌏 <a href="https://www.skylife.co.kr/product/combi/TPS" target="_blank" class="text-blue-600 hover:underline">스카이라이프 가용조회 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-1-2" data-copy-type="link">링크 복사</button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">5.2. 편성표</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">SK 편성표</h4>
-                        <div id="additional-info-5-2-1" class="template-text">📻 <a href="https://www.bworld.co.kr/content/realtime/realtime_list.do?menu_id=P03030100&pack=B%EC%8A%A4%EB%A7%88%ED%8A%B8Plus" target="_blank" class="text-blue-600 hover:underline">SK 편성표 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-2-1" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">KT 편성표</h4>
-                        <div id="additional-info-5-2-2" class="template-text">📻 <a href="https://tv.kt.com/tv/channel/pChInfo.asp?_ga=2.34843432.844905408.1670213879-1568625152.1668496599&_gac=1.89683049.1670388992.Cj0KCQiA7bucBhCeARIsAIOwr-_BRcWopdUJG9KT3QnWeAuyjp4CFDp_7fzi-PagHbZMtEZneeuPtEoaAhc4EALw_wcB" target="_blank" class="text-blue-600 hover:underline">KT 편성표 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-2-2" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">LG 편성표</h4>
-                        <div id="additional-info-5-2-3" class="template-text">📻 <a href="https://www.lguplus.com/iptv/channel-guide" target="_blank" class="text-blue-600 hover:underline">LG 편성표 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-2-3" data-copy-type="link">링크 복사</button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">5.3. 결합조회 방법</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">KT 결합조회 방법</h4>
-                        <div id="additional-info-5-3-1" class="template-text">♾️ KT 결합조회 방법
-KT → 마이 케이티 어플 → 왼쪽 하단 메뉴 → 요금/서비스 →
-결합 신청/변경 → 결합 내역 조회 → 이용중인 결합 상품 → 결합정보[총액 결합 할인 / 프리미엄 가족, 싱글 결합] → 패밀리 결합(결합 되어 있을 경우 패밀리 결합으로 안내)</div>
-                        <button class="copy-button" data-target="additional-info-5-3-1">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">SK 결합조회 방법</h4>
-                        <div id="additional-info-5-3-2" class="template-text">♾️ SK 결합조회 방법
-T world → 우측 하단 메뉴 → 우측 하단으로 내리시면 나의 가입 정보 → 나의 결합 상품
-= [온가족 무료] / [온가족 플랜] / [온가족 프리] / [요즘 가족 결합] → 패밀리 결합
-= [온가족 할인] → 요금 안내서 → 우측 상단 자물쇠 인증 → 인증번호 발송 → 인증 후 메뉴 → 내 가입 정보 → 나의 결합 상품 → 합산 기간 조회
-= 결합 없을 경우 → [요즘 가족 결합]</div>
-                        <button class="copy-button" data-target="additional-info-5-3-2">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">LG 결합조회 방법</h4>
-                        <div id="additional-info-5-3-3" class="template-text">♾️ LG 결합조회 방법
-당신의 유플러스(고객센터) → 우측 상단 메뉴 → 결합 할인 정보-결합 할인 조회
-= [가족 무한 사랑]/[한방에 YO]/[한방에 HOME] → [인터넷 가족끼리 모여](LG 패밀리, 5,500원 할인 적용, 모든 상품에 상관없이)
-= [참 쉬운 가족 결합] → 인터넷 3대까지 결합 가능해서 추가 결합
-= [투게더 결합] → 500메가 이상 급만 결합 가능, 인터넷 3대까지 결합 가능해서 추가 결합</div>
-                        <button class="copy-button" data-target="additional-info-5-3-3">내용 복사</button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">5.4. 월 프로모션 링크 (매월 업데이트)</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">KT 프로모션</h4>
-                        <div id="additional-info-5-4-1" class="template-text">🎁 <a href="https://www.speedonline.kr/post/3712/read" target="_blank" class="text-blue-600 hover:underline">KT프로모션 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-4-1" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">LG 프로모션</h4>
-                        <div id="additional-info-5-4-2" class="template-text">🎁 <a href="https://www.speedonline.kr/post/3717/read" target="_blank" class="text-blue-600 hover:underline">LG프로모션 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-4-2" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">SK 프로모션</h4>
-                        <div id="additional-info-5-4-3" class="template-text">🎁 <a href="https://www.speedonline.kr/post/3713/read" target="_blank" class="text-blue-600 hover:underline">SK프로모션 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-4-3" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">헬로비전 프로모션</h4>
-                        <div id="additional-info-5-4-4" class="template-text">🎁 <a href="https://www.speedonline.kr/post/3715/read" target="_blank" class="text-blue-600 hover:underline">헬로비전프로모션 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-4-4" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">SKB 프로모션</h4>
-                        <div id="additional-info-5-4-5" class="template-text">🎁 <a href="https://www.speedonline.kr/post/3719/read" target="_blank" class="text-blue-600 hover:underline">SKB프로모션 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-4-5" data-copy-type="link">링크 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">스카이라이프 프로모션</h4>
-                        <div id="additional-info-5-4-6" class="template-text">🎁 <a href="https://www.speedonline.kr/post/3720/read" target="_blank" class="text-blue-600 hover:underline">스카이프로모션 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-4-6" data-copy-type="link">링크 복사</button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">5.5. KT 인증코드 확인</h3>
-                    <div class="template-card">
-                        <h4 class="text-lg font-semibold mb-2">KT 인증코드 확인 방법</h4>
-                        <div id="additional-info-5-5-1" class="template-text"><a href="https://www.speedonline.kr/post/3649/read" target="_blank" class="text-blue-600 hover:underline">KT인증코드 확인 바로가기</a></div>
-                        <button class="copy-button" data-target="additional-info-5-5-1" data-copy-type="link">링크 복사</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">6. 팔로우업(FU) 코드 모음</h2>
+        <section id="resultSection" class="hidden">
+            <h2 class="section-title">📊 계산 결과</h2>
+            
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">요금 요약 (VAT 포함)</h3>
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="template-card">
-                        <div id="fu-code-1" class="template-text">부재 FU ❌</div>
-                        <button class="copy-button" data-target="fu-code-1">내용 복사</button>
+                    <div>
+                        <p class="result-label summary-item">선택 인터넷: <span id="selectedInternet" class="result-value"></span></p>
+                        <p class="result-label summary-item">선택 U+tv (1번째): <span id="selectedTv" class="result-value"></span></p>
+                        <p class="result-label summary-item">선택 추가 U+tv (2번째): <span id="selectedAdditionalTv" class="result-value"></span></p>
+                        <p class="result-label summary-item">선택 인터넷전화: <span id="selectedPhone" class="result-value"></span></p>
+                        <p class="result-label summary-item">모바일 회선 수: <span id="selectedMobileCount" class="result-value"></span></p>
+                        <p class="result-label summary-item">적용 할인 유형: <span id="selectedDiscountType" class="result-value"></span></p>
                     </div>
-                    <div class="template-card">
-                        <div id="fu-code-2" class="template-text">부재 FU ❌❌</div>
-                        <button class="copy-button" data-target="fu-code-2">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-3" class="template-text">부재 FU ❌❌❌</div>
-                        <button class="copy-button" data-target="fu-code-3">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-4" class="template-text">세일즈 FU 💰</div>
-                        <button class="copy-button" data-target="fu-code-4">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-5" class="template-text">세일즈 FU 💰💰</div>
-                        <button class="copy-button" data-target="fu-code-5">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-6" class="template-text">세일즈 FU 💰💰💰</div>
-                        <button class="copy-button" data-target="fu-code-6">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-7" class="template-text">LOST FU 🚫</div>
-                        <button class="copy-button" data-target="fu-code-7">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-8" class="template-text">접수 FU 📝</div>
-                        <button class="copy-button" data-target="fu-code-8">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-9" class="template-text">세일즈 부재 FU 💰❌</div>
-                        <button class="copy-button" data-target="fu-code-9">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-10" class="template-text">세일즈 부재 FU 💰❌💰❌</div>
-                        <button class="copy-button" data-target="fu-code-10">내용 복사</button>
-                    </div>
-                    <div class="template-card">
-                        <div id="fu-code-11" class="template-text">세일즈 부재 FU 💰❌💰❌💰❌</div>
-                        <button class="copy-button" data-target="fu-code-11">내용 복사</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold section-title">7. 제휴카드 할인 정보 (2025년 5월 기준)</h2>
-                <p class="text-sm text-gray-500 mb-4">(참고: 카드명: 전월 실적 / 할인액 순)</p>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">A. KT 제휴카드</h3>
-                    <div class="template-card">
-                        <div id="card-info-kt" class="template-text">
-                            <div class="card-info-item">우리카드: 40만원 / 22,000원</div>
-                            <div class="card-info-item">우리카드: 80만원 / 25,000원</div>
-                            <div class="card-info-item">롯데카드: 40만원 / 23,000원</div>
-                            <div class="card-info-item">롯데카드: 80만원 / 25,000원</div>
-                            <div class="card-info-item">삼성카드: 30만원 / 21,000원</div>
-                            <div class="card-info-item">삼성카드: 70만원 / 22,000원</div>
-                            <div class="card-info-item">삼성카드: 120만원 / 23,000원</div>
-                            <div class="card-info-item">현대카드: 50만원 / 25,000원</div>
-                            <div class="card-info-item">현대카드: 100만원 / 30,000원</div>
-                            <div class="card-info-item">현대카드: 150만원 / 40,000원</div>
-                            <div class="card-info-item">신한카드: 30만원 / 18,000원</div>
-                            <div class="card-info-item">BC바로카드: 30만원 / 15,000원</div>
-                            <div class="card-info-item">BC바로카드: 70만원 / 18,000원</div>
-                            <div class="card-info-item">NH농협카드: 40만원 / 14,000원</div>
-                            <div class="card-info-item">NH농협카드: 80만원 / 19,000원</div>
-                            <div class="card-info-item">하나카드: 30만원 / 10,000원</div>
-                            <div class="card-info-item">하나카드: 80만원 / 15,000원</div>
+                    <div>
+                        <p class="result-label summary-item">월 인터넷 기본료 (TV결합여부 반영): <span id="totalBaseInternetCost" class="result-value">0</span> 원</p>
+                        <p class="result-label text-green-600 summary-item">월 총 인터넷 결합 할인액: <span id="totalInternetDiscountAmount" class="result-value text-green-600">0</span> 원</p>
+                        
+                        <div id="tvCostSummaryContainer" class="hidden"> 
+                            <hr class="my-1 border-slate-200">
+                            <p class="result-label summary-item">월 U+tv 요금 (1번째): <span id="tvBaseCostDisplay" class="result-value">0</span> 원</p>
                         </div>
-                        <button class="copy-button" data-target="card-info-kt">전체 내용 복사</button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">B. LG U+ 제휴카드</h3>
-                    <div class="template-card">
-                        <div id="card-info-lgu" class="template-text">
-                            <div class="card-info-item">NH농협카드: 30만원 / 18,000원</div>
-                            <div class="card-info-item">NH농협카드: 70만원 / 24,000원</div>
-                            <div class="card-info-item">우리카드: 40만원 / 23,000원</div>
-                            <div class="card-info-item">우리카드: 80만원 / 25,000원</div>
-                            <div class="card-info-item">우리카드: 120만원 / 26,000원</div>
-                            <div class="card-info-item">현대카드: 50만원 / 26,000원</div>
-                            <div class="card-info-item">현대카드: 100만원 / 29,000원</div>
-                            <div class="card-info-item">롯데카드: 30만원 / 20,000원</div>
-                            <div class="card-info-item">롯데카드: 70만원 / 24,000원</div>
-                            <div class="card-info-item">롯데카드: 120만원 / 26,000원</div>
-                            <div class="card-info-item">삼성카드: 30만원 / 18,000원</div>
-                            <div class="card-info-item">삼성카드: 70만원 / 19,000원</div>
-                            <div class="card-info-item">삼성카드: 120만원 / 20,000원</div>
-                            <div class="card-info-item">하나카드: 30만원 / 10,000원</div>
-                            <div class="card-info-item">하나카드: 80만원 / 15,000원</div>
+                         <div id="additionalTvCostSummaryContainer" class="hidden">
+                            <hr class="my-1 border-slate-200">
+                            <p class="result-label summary-item">월 추가 U+tv 요금 (2번째): <span id="additionalTvCostDisplay" class="result-value">0</span> 원</p>
                         </div>
-                        <button class="copy-button" data-target="card-info-lgu">전체 내용 복사</button>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">C. SK Broadband 제휴카드</h3>
-                    <div class="template-card">
-                        <div id="card-info-skb" class="template-text">
-                            <div class="card-info-item">삼성카드: 30만원 / 18,000원</div>
-                            <div class="card-info-item">삼성카드: 70만원 / 19,000원</div>
-                            <div class="card-info-item">삼성카드: 120만원 / 20,000원</div>
-                            <div class="card-info-item">롯데카드: 40만원 / 16,000원</div>
-                            <div class="card-info-item">롯데카드: 80만원 / 20,000원</div>
-                            <div class="card-info-item">현대카드: 50만원 / 25,000원</div>
-                            <div class="card-info-item">현대카드: 100만원 / 30,000원</div>
-                            <div class="card-info-item">KB국민카드: 30만원 / 12,000원</div>
-                            <div class="card-info-item">KB국민카드: 70만원 / 17,000원</div>
-                            <div class="card-info-item">하나카드: 25만원 / 10,000원</div>
-                            <div class="card-info-item">하나카드: 40만원 / 13,000원</div>
+                        <div id="phoneCostSummaryContainer" class="hidden">
+                            <hr class="my-1 border-slate-200">
+                            <p class="result-label summary-item">월 인터넷전화 기본료: <span id="phoneBaseCostDisplay" class="result-value">0</span> 원</p>
                         </div>
-                        <button class="copy-button" data-target="card-info-skb">전체 내용 복사</button>
+                        <hr class="my-1 border-pink-300">
+                        <p class="mt-2 text-lg font-semibold">최종 예상 월 납부액: <span id="finalMonthlyCost" class="total-value">0</span> 원</p>
                     </div>
                 </div>
-                
-                <div>
-                    <h3 class="text-xl font-medium subsection-title">D. SkyLife 제휴카드</h3>
-                    <div class="template-card">
-                        <div id="card-info-skylife" class="template-text">
-                            <div class="card-info-item">KB국민카드: 30만원 / 13,000원</div>
-                            <div class="card-info-item">KB국민카드: 70만원 / 17,000원</div>
-                            <div class="card-info-item">BC바로카드: 30만원 / 12,000원</div>
-                            <div class="card-info-item">BC바로카드: 70만원 / 17,000원</div>
-                            <div class="card-info-item">롯데카드: 30만원 / 13,000원</div>
-                            <div class="card-info-item">롯데카드: 70만원 / 15,000원</div>
-                            <div class="card-info-item">롯데카드: 150만원 / 25,000원</div>
-                            <div class="card-info-item">하나카드: 30만원 / 13,000원</div>
-                        </div>
-                        <button class="copy-button" data-target="card-info-skylife">전체 내용 복사</button>
-                    </div>
+            </div>
+
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">🎁 사은품 혜택 (예상 현금)</h3>
+                <p class="result-label summary-item">현금 사은품: <span id="giftCash" class="result-value">0</span> 원</p>
+                 <p class="text-xs text-pink-500 mt-1">* 사은품 정보는 변동될 수 있으니 가입 시점에 반드시 재확인 바랍니다.</p>
+            </div>
+
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">초기 설치 비용 (선택한 모든 유선 서비스 기준)</h3>
+                <p class="result-label">예상 총 설치비: <span id="installationCostResult" class="result-value text-lg">0</span> 원</p>
+                <p class="text-xs text-slate-500 mt-1">* 선택하신 설치 시점(평일/주말) 및 서비스 조합에 따라 계산됩니다. 프로모션으로 면제될 수 있습니다.</p>
+            </div>
+            
+             <div class="result-card mt-6">
+                <h3 class="text-xl font-semibold text-pink-600 mb-2">추가 안내사항</h3>
+                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                    <li>본 계산기는 제공된 LG U+ 결합상품 정보를 바탕으로 한 추정치입니다.</li>
+                    <li>인터넷 요금은 TV 결합 여부에 따라 기본 할인된 요금(JSON의 with_tv_base)을 기준으로 추가 결합 할인이 적용됩니다.</li>
+                    <li>실제 요금은 LG U+의 최신 정책, 가입 시점의 프로모션, 추가 선택 사항에 따라 달라질 수 있습니다.</li>
+                    <li>약정 기간 내 해지 시 위약금(할인반환금 및 장비변상금)이 발생할 수 있습니다.</li>
+                    <li>더 정확한 정보는 LG U+ 공식 홈페이지 또는 고객센터(국번없이 101 또는 1644-7000)를 통해 확인하시기 바랍니다.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="messageScriptSection" class="hidden mt-12">
+            <h2 class="section-title">📄 고객 안내 문자 스크립트 (상담원 참고용)</h2>
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">1. 전산 메모</h3>
+                <textarea id="memoScript" class="message-script-area" readonly></textarea>
+                <div class="copy-button-container">
+                    <button onclick="copyToClipboard('memoScript', 'copyFeedbackMemo')" class="btn-secondary text-xs">복사하기</button>
+                    <span id="copyFeedbackMemo" class="copy-feedback"></span>
                 </div>
+            </div>
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">2. 상품 안내 문자</h3>
+                <textarea id="infoScript" class="message-script-area" readonly></textarea>
+                 <div class="copy-button-container">
+                    <button onclick="copyToClipboard('infoScript', 'copyFeedbackInfo')" class="btn-secondary text-xs">복사하기</button>
+                    <span id="copyFeedbackInfo" class="copy-feedback"></span>
+                </div>
+            </div>
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">3. 가입 완료 문자</h3>
+                <textarea id="completeScript" class="message-script-area" readonly></textarea>
+                 <div class="copy-button-container">
+                    <button onclick="copyToClipboard('completeScript', 'copyFeedbackComplete')" class="btn-secondary text-xs">복사하기</button>
+                    <span id="copyFeedbackComplete" class="copy-feedback"></span>
+                </div>
+            </div>
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">4. 민감정보 전송용 링크 (고객 발송용)</h3>
+                <textarea id="sensitiveInfoLinkScript" class="message-script-area" readonly></textarea>
+                <div class="copy-button-container">
+                    <button onclick="copyToClipboard('sensitiveInfoLinkScript', 'copyFeedbackSensitiveLink')" class="btn-secondary text-xs">복사하기</button>
+                    <span id="copyFeedbackSensitiveLink" class="copy-feedback"></span>
+                </div>
+            </div>
+            <div class="result-card">
+                <h3 class="text-xl font-semibold text-pink-600 mb-3">5. U+알뜰모바일 인터넷 결합 요금제 안내 (고객 발송용)</h3>
+                <textarea id="mvnoInfoLinkScript" class="message-script-area" readonly>U+알뜰모바일 인터넷 결합 요금제 정보: https://www.uplusmvno.com/plan/plan-list</textarea>
+                <div class="copy-button-container">
+                    <button onclick="copyToClipboard('mvnoInfoLinkScript', 'copyFeedbackMvnoLink')" class="btn-secondary text-xs">복사하기</button>
+                    <span id="copyFeedbackMvnoLink" class="copy-feedback"></span>
+                </div>
+            </div>
+        </section>
+    </main>
 
-            </section>
-
-        </main>
-
-        <footer class="text-center mt-12 py-4 border-t border-gray-200">
-            <p class="text-sm text-gray-500">&copy; 미소 인터넷. 모든 권리 보유.</p>
-        </footer>
-    </div>
+    <footer class="text-center p-6 mt-12 bg-pink-800 text-pink-200 text-sm">
+        <p>본 계산기는 LG U+ 판매점 미소에 제공합니다.</p>
+        <p>&copy; 2024 LG U+ 결합 할인 계산기. 모든 정보는 참고용입니다.</p>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const copyButtons = document.querySelectorAll('.copy-button');
+        const lguData = {
+            "company": "LG U+",
+            "data_source_notes": "Prices and services based on user-provided list. All prices are in KRW and assume monthly unless specified as one-time (e.g., installation).",
+            "internet_plans": {
+                "standalone": {
+                    "100M": { "name": "인터넷(단독) 100M", "price": 22000, "speed_mbps": 100, "type": "100M" },
+                    "500M": { "name": "인터넷(단독) 500M", "price": 33000, "speed_mbps": 500, "type": "500M" },
+                    "1G": { "name": "인터넷(단독) 1GB", "price": 38500, "speed_mbps": 1000, "type": "1G" }
+                },
+                "with_tv_base": { 
+                    "100M": { "name": "인터넷 100M (TV 결합 시)", "price": 22000, "speed_mbps": 100, "type": "100M" },
+                    "500M": { "name": "인터넷 500M (TV 결합 시)", "price": 27500, "speed_mbps": 500, "type": "500M" },
+                    "1G": { "name": "인터넷 1GB (TV 결합 시)", "price": 33000, "speed_mbps": 1000, "type": "1G" }
+                }
+            },
+            "tv_plans": {
+                "basic_uhd4": { "name": "TV베이직 + UHD4", "channels_info": "211채널", "price": 16500, "category": "베이직" },
+                "premium_uhd4": { "name": "TV프리미엄 + UHD4", "channels_info": "254채널", "price": 20900, "category": "프리미엄" },
+                "premium_lite_uhd4": { "name": "TV프리미엄 라이트 + UHD4", "channels_info": "259채널", "price": 23100, "category": "프리미엄 라이트" },
+                "premium_disney_uhd4": { "name": "TV프리미엄 디즈니 + UHD4", "price": 29000, "notes": "STB assumed as UHD4 if not specified", "category": "프리미엄 디즈니" },
+                "premium_netflix_hd_uhd4": { "name": "TV프리미엄 넷플릭스 HD + UHD4", "price": 32200, "notes": "STB assumed as UHD4 if not specified", "category": "프리미엄 넷플릭스 HD" },
+                "premium_netflix_uhd_uhd4": { "name": "TV프리미엄 넷플릭스 UHD + UHD4", "price": 35700, "notes": "STB assumed as UHD4 if not specified", "category": "프리미엄 넷플릭스 UHD" }
+            },
+            "phone_plans": {
+                "voip_own_device": { "name": "인터넷 전화(070) - 단말기 보유", "price": 3300 },
+                "voip_rental_device": { "name": "인터넷 전화 (070) - 단말기 임대", "price": 5562 }
+            },
+            "wifi_router": {
+                "standard": { "name": "공유기", "price": 0, "notes": "일반적으로 인터넷 요금제에 포함" }
+            },
+            "additional_tv_options": {
+                "basic_uhd4_add": { "name": "TV 추가 베이직 + UHD4", "channels_info": "211채널", "price": 11550 },
+                "basic_advanced_stb_for_100m_internet_add": { "name": "TV 추가 베이직(고급형) / 100mb 인터넷 시", "price": 10450, "condition": "100mb 인터넷 이용 시" },
+                "premium_uhd4_add": { "name": "TV 추가 프리미엄(UHD4)", "price": 13750 }
+            },
+            "bundle_discounts_on_internet": {
+                "with_tv": {
+                    "100M": { "cham_family": { "discount": 5500 }, "internet_family_all_together": { "discount": 5500 } },
+                    "500M": { "cham_family": { "discount": 9900 }, "internet_family_all_together": { "discount": 5500 }, "together_bundle": { "discount": 11000 } },
+                    "1G": { "cham_family": { "discount": 13200 }, "internet_family_all_together": { "discount": 5500 }, "together_bundle": { "discount": 11000 } }
+                },
+                "standalone_internet": {
+                    "100M": { "cham_family": { "discount": 5500 }, "internet_family_all_together": { "discount": 5500 } },
+                    "500M": { "cham_family": { "discount": 9900 }, "internet_family_all_together": { "discount": 5500 }, "together_bundle": { "discount": 11000 } },
+                    "1G": { "cham_family": { "discount": 13200 }, "internet_family_all_together": { "discount": 5500 }, "together_bundle": { "discount": 11000 } }
+                }
+            },
+            "installation_fees": {
+                "internet_only": { "weekday": 36300, "weekend": 45375 },
+                "internet_with_landline_phone": { "weekday": 36300, "weekend": 45375 },
+                "internet_with_voip": { "weekday": 36300, "weekend": 45375 },
+                "internet_with_tv": { "weekday": 56100, "weekend": 70125 },
+                "internet_with_tv_and_phone": { "weekday": 56100, "weekend": 70125 },
+                "internet_with_tv_and_additional_tv": { "weekday": 78100, "weekend": 97625 }
+            },
+            "value_added_services": {
+                "amplifier_gapk_7600": { "name": "증폭기 (GAPK-7600)", "price": 2200 },
+                "clova_clock_plus": { "name": "클락+ (네이버 클로버)", "price_tiers": { "100M_internet": 3300, "500M_internet": 4400, "1G_internet": 4400 } },
+                "soundbar_stb_black": { "name": "사운드바 셋톱박스 블랙", "price": 2200 },
+                "chromecast": { "name": "크롬캐스트", "price": 1650 }
+            }
+        };
+        
+        const giftTableLGU = { 
+            "100M단독": { cash: 200000 }, 
+            "500M단독": { cash: 230000 },
+            "1G단독":   { cash: 230000 },
+            "100M번들": { cash: 400000 }, 
+            "500M번들": { cash: 470000 }, 
+            "1G번들":   { cash: 470000 }  
+        };
+        
+        const mvnoBundleConfigFallback = { 
+             internetDiscount: { 
+                "100M": 5500,
+                "500M": 9900,
+                "1G": 13200
+            }
+        };
 
-            copyButtons.forEach(button => {
-                // 각 버튼의 초기 텍스트를 data 속성에 저장
-                button.dataset.originalText = button.textContent;
+        const internetTypeRadios = document.querySelectorAll('input[name="internetType"]');
+        const internetPlanEl = document.getElementById('internetPlan');
+        const tvPlanEl = document.getElementById('tvPlan');
+        const additionalTvPlanEl = document.getElementById('additionalTvPlan');
+        const phonePlanEl = document.getElementById('phonePlan');
+        const mobileLinesCountEl = document.getElementById('mobileLinesCount');
+        const mobileLinesContainerEl = document.getElementById('mobileLinesContainer');
+        const discountTypeRadios = document.querySelectorAll('input[name="discountType"]');
+        
+        const chamFamilyDetailsToggleEl = document.getElementById('chamFamilyDetailsToggle');
+        const chamFamilyDetailsContainerEl = document.getElementById('chamFamilyDetailsContainer');
+        const detailCfInternetDiscountEl = document.getElementById('detailCfInternetDiscount');
 
-                button.addEventListener('click', () => {
-                    const targetId = button.dataset.target;
-                    const textElement = document.getElementById(targetId);
-                    
-                    if (textElement) {
-                        let textToCopy = '';
-                        const copyType = button.dataset.copyType;
+        const togetherDetailsToggleEl = document.getElementById('togetherDetailsToggle');
+        const togetherDetailsContainerEl = document.getElementById('togetherDetailsContainer');
+        const detailTgInternetDiscountEl = document.getElementById('detailTgInternetDiscount');
 
-                        if (copyType === 'link') {
-                            const linkTag = textElement.querySelector('a');
-                            if (linkTag && linkTag.href) {
-                                textToCopy = linkTag.href;
-                            } else {
-                                textToCopy = textElement.innerText || textElement.textContent;
+        const internetFamilyDetailsToggleEl = document.getElementById('internetFamilyDetailsToggle');
+        const internetFamilyDetailsContainerEl = document.getElementById('internetFamilyDetailsContainer');
+        const detailIfInternetDiscountEl = document.getElementById('detailIfInternetDiscount');
+
+        const mvnoLGUDetailsToggleEl = document.getElementById('mvnoLGUDetailsToggle');
+        const mvnoLGUDetailsContainerEl = document.getElementById('mvnoLGUDetailsContainer');
+        const detailMvnoLGUInternetDiscountEl = document.getElementById('detailMvnoLGUInternetDiscount');
+
+        const calculateButton = document.getElementById('calculateButton');
+        const resultSection = document.getElementById('resultSection');
+        
+        const selectedInternetEl = document.getElementById('selectedInternet');
+        const selectedTvEl = document.getElementById('selectedTv');
+        const selectedAdditionalTvEl = document.getElementById('selectedAdditionalTv');
+        const selectedPhoneEl = document.getElementById('selectedPhone');
+        const selectedMobileCountEl = document.getElementById('selectedMobileCount');
+        const selectedDiscountTypeEl = document.getElementById('selectedDiscountType');
+        
+        const totalBaseInternetCostEl = document.getElementById('totalBaseInternetCost');
+        const totalInternetDiscountAmountEl = document.getElementById('totalInternetDiscountAmount');
+        
+        const tvCostSummaryContainerEl = document.getElementById('tvCostSummaryContainer');
+        const tvBaseCostDisplayEl = document.getElementById('tvBaseCostDisplay');
+
+        const additionalTvCostSummaryContainerEl = document.getElementById('additionalTvCostSummaryContainer');
+        const additionalTvCostDisplayEl = document.getElementById('additionalTvCostDisplay');
+
+        const phoneCostSummaryContainerEl = document.getElementById('phoneCostSummaryContainer');
+        const phoneBaseCostDisplayEl = document.getElementById('phoneBaseCostDisplay');
+
+        const finalMonthlyCostEl = document.getElementById('finalMonthlyCost');
+        const installationCostResultEl = document.getElementById('installationCostResult');
+        const giftCashEl = document.getElementById('giftCash');
+
+        const messageScriptSectionEl = document.getElementById('messageScriptSection');
+        const memoScriptEl = document.getElementById('memoScript');
+        const infoScriptEl = document.getElementById('infoScript');
+        const completeScriptEl = document.getElementById('completeScript');
+        const sensitiveInfoLinkScriptEl = document.getElementById('sensitiveInfoLinkScript');
+        const mvnoInfoLinkScriptEl = document.getElementById('mvnoInfoLinkScript'); // Added for new script
+
+
+        function populateSelectWithOptionsGeneric(selectElement, dataObject, defaultKey = "none", nameKey = "name", priceKey = "price") {
+            const currentValue = selectElement.value; 
+            selectElement.innerHTML = `<option value="none">선택 안함</option>`;
+            for (const key in dataObject) {
+                const item = dataObject[key];
+                const option = document.createElement('option');
+                option.value = key;
+                if ((selectElement.id === 'tvPlan' || selectElement.id === 'additionalTvPlan') && item.channels_info) {
+                     option.textContent = `${item[nameKey]} (${item.channels_info}, 월 ${item[priceKey].toLocaleString()}원)`;
+                } else {
+                     option.textContent = `${item[nameKey]} (월 ${item[priceKey].toLocaleString()}원)`;
+                }
+                option.dataset.price = item[priceKey];
+                if (item.speed_mbps) option.dataset.speed = item.speed_mbps;
+                if (item.type) option.dataset.type = item.type;
+                if (item.channels_info) option.dataset.channels = item.channels_info;
+                if (item.category) option.dataset.category = item.category;
+                selectElement.appendChild(option);
+            }
+            if (selectElement.querySelector(`option[value="${currentValue}"]`)) {
+                selectElement.value = currentValue;
+            } else if (defaultKey !== "none" && dataObject[defaultKey]) {
+                 selectElement.value = defaultKey;
+            } else if (defaultKey === "none" && selectElement.options.length > 0) {
+                selectElement.value = "none";
+            }
+        }
+        
+        function populateInternetPlans(isBundle) {
+            const currentInternetPlanKey = internetPlanEl.value; 
+            internetPlanEl.innerHTML = `<option value="none">선택 안함</option>`;
+            const plansToShow = isBundle ? lguData.internet_plans.with_tv_base : lguData.internet_plans.standalone;
+            const notesEl = document.getElementById('internetNotes');
+
+            for (const key in plansToShow) { 
+                const item = plansToShow[key];
+                const option = document.createElement('option');
+                option.value = key; 
+                option.textContent = `${item.name} (월 ${item.price.toLocaleString()}원)`;
+                option.dataset.price = item.price; 
+                option.dataset.speed = item.speed_mbps;
+                option.dataset.type = item.type; 
+                internetPlanEl.appendChild(option);
+            }
+
+            if (internetPlanEl.querySelector(`option[value="${currentInternetPlanKey}"]`)) {
+                internetPlanEl.value = currentInternetPlanKey;
+            } else { 
+                internetPlanEl.value = "500M"; 
+            }
+            
+            if (notesEl) {
+                notesEl.textContent = isBundle ? "참고: WiFi 공유기 포함. TV 결합 시 기본 할인된 요금입니다." : "참고: WiFi 공유기 포함.";
+            }
+        }
+
+        function handleInternetTypeChange() {
+            const selectedType = document.querySelector('input[name="internetType"]:checked').value;
+            const isBundle = selectedType === 'bundle';
+
+            populateInternetPlans(isBundle);
+
+            tvPlanEl.disabled = !isBundle;
+            additionalTvPlanEl.disabled = !isBundle;
+            phonePlanEl.disabled = !isBundle; 
+
+            if (!isBundle) {
+                tvPlanEl.value = 'none';
+                additionalTvPlanEl.value = 'none';
+                phonePlanEl.value = 'none'; 
+            } else {
+                if (tvPlanEl.value === 'none' && lguData.tv_plans['basic_uhd4']) {
+                     tvPlanEl.value = 'basic_uhd4';
+                }
+            }
+            handleTvPlanChange(); 
+        }
+        
+        function handleTvPlanChange() {
+            const isFirstTvSelected = tvPlanEl.value !== 'none';
+            const isBundleType = document.querySelector('input[name="internetType"]:checked').value === 'bundle';
+            
+            additionalTvPlanEl.disabled = !isFirstTvSelected || !isBundleType;
+            if (!isFirstTvSelected || !isBundleType) {
+                additionalTvPlanEl.value = 'none';
+            }
+        }
+
+        function updateMobileLineControls() {
+            const selectedDiscount = document.querySelector('input[name="discountType"]:checked').value;
+            let mobileCount = 0; 
+            let isMobileDisabled = true;
+
+            switch (selectedDiscount) {
+                case 'none':
+                    mobileCount = 0;
+                    isMobileDisabled = true;
+                    break;
+                case 'cham_family':
+                    mobileCount = 1; 
+                    isMobileDisabled = false;
+                    break;
+                case 'together_bundle':
+                    mobileCount = 1; 
+                    isMobileDisabled = false;
+                    break;
+                case 'internet_family_all_together':
+                    mobileCount = 0;
+                    isMobileDisabled = true;
+                    break;
+                case 'mvno_bundle':
+                    mobileCount = 1; 
+                    isMobileDisabled = false;
+                    break;
+                default: 
+                    mobileCount = 0;
+                    isMobileDisabled = true;
+            }
+            mobileLinesCountEl.value = mobileCount;
+            mobileLinesCountEl.disabled = isMobileDisabled;
+            updateMobileLinesInputsLGU(); 
+        }
+
+
+        function initializeCalculator() {
+            internetTypeRadios.forEach(radio => radio.addEventListener('change', handleInternetTypeChange));
+            
+            populateSelectWithOptionsGeneric(tvPlanEl, lguData.tv_plans, "basic_uhd4");
+            populateSelectWithOptionsGeneric(additionalTvPlanEl, lguData.additional_tv_options, "none", "name", "price");
+            populateSelectWithOptionsGeneric(phonePlanEl, lguData.phone_plans, "none");
+
+            tvPlanEl.addEventListener('change', handleTvPlanChange); 
+            
+            handleInternetTypeChange(); 
+            updateMobileLineControls(); 
+
+            allDetailSectionsLGU.forEach(section => {
+                if (section.containerEl) {
+                    const isSelectedRadio = document.querySelector(`input[name="discountType"][value="${section.radioValue}"]`);
+                    const isSelected = isSelectedRadio ? isSelectedRadio.checked : false;
+                    let shouldBeVisible = isSelected && section.toggleEl && section.toggleEl.checked;
+                     if (section.radioValue === "none" && isSelected) { 
+                        shouldBeVisible = false;
+                    }
+                    section.containerEl.classList.toggle('hidden', !shouldBeVisible);
+                    if (shouldBeVisible && section.updateFn) { 
+                        section.updateFn();
+                    }
+                }
+            });
+        }
+
+        mobileLinesCountEl.addEventListener('input', updateMobileLinesInputsLGU);
+        calculateButton.addEventListener('click', calculateAndDisplayResultsLGU);
+        
+        const allDetailSectionsLGU = [
+            { radioValue: 'cham_family', toggleEl: chamFamilyDetailsToggleEl, containerEl: chamFamilyDetailsContainerEl, updateFn: updateChamFamilyDetails },
+            { radioValue: 'together_bundle', toggleEl: togetherDetailsToggleEl, containerEl: togetherDetailsContainerEl, updateFn: updateTogetherDetails },
+            { radioValue: 'internet_family_all_together', toggleEl: internetFamilyDetailsToggleEl, containerEl: internetFamilyDetailsContainerEl, updateFn: updateInternetFamilyDetails },
+            { radioValue: 'mvno_bundle', toggleEl: mvnoLGUDetailsToggleEl, containerEl: mvnoLGUDetailsContainerEl, updateFn: updateMvnoLGUDetails }
+        ];
+
+        discountTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                updateMobileLineControls(); 
+                allDetailSectionsLGU.forEach(section => {
+                    if (section.containerEl) {
+                        let isVisible = false;
+                        if (this.value === section.radioValue) { 
+                            if (section.toggleEl) { 
+                                isVisible = section.toggleEl.checked; 
+                                if (isVisible && section.updateFn) {
+                                    section.updateFn();
+                                }
                             }
-                        } else {
-                            textToCopy = textElement.innerText || textElement.textContent;
+                        } else { 
+                            if(section.toggleEl) section.toggleEl.checked = false; 
+                            isVisible = false; 
                         }
-                        
-                        const textArea = document.createElement('textarea');
-                        textArea.value = textToCopy;
-                        textArea.style.position = 'fixed';
-                        textArea.style.left = '-9999px';
-                        textArea.style.top = '-9999px';
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        try {
-                            document.execCommand('copy');
-                            button.textContent = '복사 완료!';
-                            button.classList.add('copied');
-                            
-                            setTimeout(() => {
-                                // 저장된 원래 텍스트로 복원
-                                button.textContent = button.dataset.originalText;
-                                button.classList.remove('copied');
-                            }, 2000);
-                        } catch (err) {
-                            console.error('텍스트 복사 실패:', err);
-                            button.textContent = '복사 실패';
-                             setTimeout(() => {
-                                // 저장된 원래 텍스트로 복원
-                                button.textContent = button.dataset.originalText;
-                            }, 2000);
-                        }
-                        document.body.removeChild(textArea);
+                        section.containerEl.classList.toggle('hidden', !isVisible);
                     }
                 });
-
-                // 버튼 초기 텍스트 설정 (data-copy-type 및 ID 기반)
-                const targetId = button.dataset.target;
-                const textElement = document.getElementById(targetId);
-
-                if (button.dataset.copyType === 'link' && textElement && textElement.querySelector('a')) {
-                    button.textContent = '링크 복사';
-                } else if (targetId && targetId.startsWith('additional-info') && !(textElement && textElement.querySelector('a'))) {
-                     button.textContent = '내용 복사';
-                } else if (targetId && targetId.startsWith('fu-code-')) {
-                     button.textContent = '내용 복사';
-                } else if (targetId && targetId.startsWith('card-info-')) {
-                     button.textContent = '전체 내용 복사';
-                } else if (targetId && targetId.startsWith('template')) {
-                    button.textContent = '복사하기';
-                }
-                // 변경된 초기 텍스트를 다시 originalText에 저장
-                button.dataset.originalText = button.textContent;
             });
         });
+        
+        allDetailSectionsLGU.forEach(section => {
+            if (section.toggleEl) {
+                section.toggleEl.addEventListener('change', function() {
+                    const selectedRadio = document.querySelector(`input[name="discountType"][value="${section.radioValue}"]`);
+                    const isSelectedRadioChecked = selectedRadio ? selectedRadio.checked : false;
+
+                    if (isSelectedRadioChecked) { 
+                        section.containerEl.classList.toggle('hidden', !this.checked);
+                        if (this.checked && section.updateFn) {
+                            section.updateFn();
+                        }
+                    }
+                });
+            }
+        });
+
+        function updateMobileLinesInputsLGU() {
+            const count = parseInt(mobileLinesCountEl.value) || 0;
+            mobileLinesContainerEl.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const div = document.createElement('div');
+                div.className = 'mobile-line-item grid grid-cols-1 md:grid-cols-2 gap-4 items-center';
+                div.innerHTML = `
+                    <div>
+                        <label for="mobileCost${i}" class="block text-sm font-medium text-slate-600">회선 ${i + 1} 월정액 (VAT포함, 할인 전)</label>
+                        <input type="number" id="mobileCost${i}" class="input-field mt-1" placeholder="예: 85000" value="0">
+                    </div>
+                    <div>
+                        <label class="flex items-center mt-1 md:mt-5">
+                            <input type="checkbox" id="mobileHighTier${i}" class="radio-input h-4 w-4">
+                            <span class="ml-2 text-sm text-slate-600">월 8.5만원 이상 (투게더 결합용)</span>
+                        </label>
+                    </div>
+                `;
+                mobileLinesContainerEl.appendChild(div);
+            }
+        }
+        
+        function getInternetPlanInfo(internetKey, isBundleInternetType) {
+            if (!internetKey || internetKey === "none") return { name: "미선택", price: 0, speed_mbps: 0, type: "none" };
+            
+            const planDataSource = isBundleInternetType ? lguData.internet_plans.with_tv_base : lguData.internet_plans.standalone;
+            const plan = planDataSource[internetKey] || lguData.internet_plans.standalone[internetKey]; 
+            return plan ? { ...plan } : { name: "오류", price: 0, speed_mbps: 0, type: "none" };
+        }
+        
+        function getDiscountFromBundle(internetTypeKey, discountTypeKeyFromJson, isBundleInternetType, numMobileLines) {
+            if (discountTypeKeyFromJson === "none") return 0; 
+
+            const category = isBundleInternetType ? "with_tv" : "standalone_internet";
+            const discountsForCategory = lguData.bundle_discounts_on_internet[category];
+
+            if (discountsForCategory && discountsForCategory[internetTypeKey] && discountsForCategory[internetTypeKey][discountTypeKeyFromJson]) {
+                if (discountTypeKeyFromJson === "together_bundle") {
+                    const internetDetails = getInternetPlanInfo(internetTypeKey, isBundleInternetType);
+                    const internetSpeedMbps = internetDetails.speed_mbps || 0;
+                    let highTierMobileCount = 0;
+                    for (let i = 0; i < numMobileLines; i++) {
+                        const mobileCostEl = document.getElementById(`mobileCost${i}`);
+                        const isHighTierEl = document.getElementById(`mobileHighTier${i}`);
+                        if (mobileCostEl && isHighTierEl) {
+                            const mobileCost = parseInt(mobileCostEl.value) || 0;
+                            const isHighTier = isHighTierEl.checked;
+                            if (isHighTier && mobileCost >= 85000) highTierMobileCount++;
+                        }
+                    }
+                    if (internetSpeedMbps >= 500 && highTierMobileCount > 0) {
+                        return discountsForCategory[internetTypeKey][discountTypeKeyFromJson].discount;
+                    }
+                    return 0; 
+                } else if (discountTypeKeyFromJson === "cham_family") {
+                     if (numMobileLines > 0){
+                        return discountsForCategory[internetTypeKey][discountTypeKeyFromJson].discount;
+                     }
+                     return 0; 
+                } else if (discountTypeKeyFromJson === "internet_family_all_together"){
+                     return discountsForCategory[internetTypeKey][discountTypeKeyFromJson].discount;
+                }
+                return discountsForCategory[internetTypeKey][discountTypeKeyFromJson].discount;
+            }
+            return 0; 
+        }
+
+        function updateChamFamilyDetails() {
+            const internetKey = internetPlanEl.value; 
+            let internetDiscount = 0;
+            const isBundle = document.querySelector('input[name="internetType"]:checked').value === 'bundle';
+            if (internetKey !== 'none' && (parseInt(mobileLinesCountEl.value) || 0) > 0) {
+                internetDiscount = getDiscountFromBundle(internetKey, "cham_family", isBundle, parseInt(mobileLinesCountEl.value) || 0);
+            }
+            detailCfInternetDiscountEl.textContent = internetDiscount.toLocaleString();
+        }
+
+        function updateTogetherDetails() {
+            const internetKey = internetPlanEl.value;
+            let internetDiscount = 0;
+            const isBundle = document.querySelector('input[name="internetType"]:checked').value === 'bundle';
+            if (internetKey !== 'none') {
+                 internetDiscount = getDiscountFromBundle(internetKey, "together_bundle", isBundle, parseInt(mobileLinesCountEl.value) || 0);
+            }
+            detailTgInternetDiscountEl.textContent = internetDiscount.toLocaleString();
+        }
+
+        function updateInternetFamilyDetails() {
+            const internetKey = internetPlanEl.value;
+            let internetDiscount = 0;
+            const isBundle = document.querySelector('input[name="internetType"]:checked').value === 'bundle';
+            if (internetKey !== 'none') {
+                 internetDiscount = getDiscountFromBundle(internetKey, "internet_family_all_together", isBundle, parseInt(mobileLinesCountEl.value) || 0);
+            }
+            detailIfInternetDiscountEl.textContent = internetDiscount.toLocaleString();
+        }
+
+        function updateMvnoLGUDetails() {
+            const internetKey = internetPlanEl.value;
+            let internetDiscount = 0;
+            if (internetKey !== 'none' && (parseInt(mobileLinesCountEl.value) || 0) > 0) {
+                const currentInternetDetails = getInternetPlanInfo(internetKey, document.querySelector('input[name="internetType"]:checked').value === 'bundle');
+                const internetType = currentInternetDetails.type;
+                if (internetType && mvnoBundleConfigFallback.internetDiscount[internetType]) {
+                    internetDiscount = mvnoBundleConfigFallback.internetDiscount[internetType];
+                }
+            }
+            detailMvnoLGUInternetDiscountEl.textContent = internetDiscount.toLocaleString();
+        }
+
+        function calculateAndDisplayResultsLGU() {
+            const selectedInternetTypeValue = document.querySelector('input[name="internetType"]:checked').value;
+            const isBundleInternetType = selectedInternetTypeValue === 'bundle';
+
+            const internetKey = internetPlanEl.value; 
+            const tvKey = isBundleInternetType ? tvPlanEl.value : 'none'; 
+            const additionalTvKey = isBundleInternetType ? additionalTvPlanEl.value : 'none';
+            const phoneKey = isBundleInternetType ? phonePlanEl.value : 'none';
+            const numMobileLines = parseInt(mobileLinesCountEl.value) || 0;
+            const selectedDiscountRadioValue = document.querySelector('input[name="discountType"]:checked').value; 
+            const installationTime = document.querySelector('input[name="installationTime"]:checked').value;
+            
+            let currentInternetDetails = getInternetPlanInfo(internetKey, isBundleInternetType);
+            let internetBasePrice = currentInternetDetails.price; 
+            let selectedTypeInternetDiscount = 0; 
+            
+            if (internetKey !== 'none' && selectedDiscountRadioValue !== "none") {
+                if (selectedDiscountRadioValue === "mvno_bundle") { 
+                     if (numMobileLines > 0 && currentInternetDetails.type && mvnoBundleConfigFallback.internetDiscount[currentInternetDetails.type]) {
+                        selectedTypeInternetDiscount = mvnoBundleConfigFallback.internetDiscount[currentInternetDetails.type];
+                    }
+                } else {
+                    selectedTypeInternetDiscount = getDiscountFromBundle(internetKey, selectedDiscountRadioValue, isBundleInternetType, numMobileLines);
+                }
+            }
+            
+            allDetailSectionsLGU.forEach(section => {
+                const radioForSection = document.querySelector(`input[name="discountType"][value="${section.radioValue}"]`);
+                if (radioForSection && radioForSection.checked && section.toggleEl && section.toggleEl.checked && section.updateFn) {
+                    section.updateFn(); 
+                }
+            });
+            
+            let totalActualInternetDiscount = selectedTypeInternetDiscount;
+            totalActualInternetDiscount = Math.min(totalActualInternetDiscount, internetBasePrice); 
+            
+            const finalInternetComponentCost = internetBasePrice - totalActualInternetDiscount;
+            
+            let tvBase = 0;
+            if (isBundleInternetType && tvKey !== 'none' && lguData.tv_plans[tvKey]) {
+                tvBase = lguData.tv_plans[tvKey].price;
+            }
+            const finalTvComponentCost = tvBase;
+            
+            let finalAdditionalTvCost = 0;
+            if (isBundleInternetType && additionalTvKey !== 'none' && lguData.additional_tv_options[additionalTvKey]) {
+                 finalAdditionalTvCost = lguData.additional_tv_options[additionalTvKey].price;
+            }
+
+            let phoneBase = 0;
+            if (isBundleInternetType && phoneKey !== 'none' && lguData.phone_plans[phoneKey]) {
+                phoneBase = lguData.phone_plans[phoneKey].price;
+            }
+            const finalPhoneComponentCost = phoneBase;
+            
+            const finalMonthlyDisplayCost = finalInternetComponentCost + finalTvComponentCost + finalAdditionalTvCost + finalPhoneComponentCost;
+            const totalPreDiscountMonthlyFee = internetBasePrice + finalTvComponentCost + finalAdditionalTvCost + finalPhoneComponentCost;
+
+
+            totalBaseInternetCostEl.textContent = internetBasePrice.toLocaleString();
+            totalInternetDiscountAmountEl.textContent = totalActualInternetDiscount.toLocaleString();
+
+            if (isBundleInternetType && tvKey !== 'none') {
+                tvCostSummaryContainerEl.classList.remove('hidden');
+                tvBaseCostDisplayEl.textContent = tvBase.toLocaleString();
+            } else {
+                tvCostSummaryContainerEl.classList.add('hidden');
+            }
+            
+            if (isBundleInternetType && additionalTvKey !== 'none') {
+                additionalTvCostSummaryContainerEl.classList.remove('hidden');
+                additionalTvCostDisplayEl.textContent = finalAdditionalTvCost.toLocaleString();
+            } else {
+                additionalTvCostSummaryContainerEl.classList.add('hidden');
+            }
+
+            if (isBundleInternetType && phoneKey !== 'none') {
+                phoneCostSummaryContainerEl.classList.remove('hidden');
+                phoneBaseCostDisplayEl.textContent = phoneBase.toLocaleString();
+            } else {
+                phoneCostSummaryContainerEl.classList.add('hidden');
+            }
+            
+            finalMonthlyCostEl.textContent = finalMonthlyDisplayCost.toLocaleString();
+
+            let calculatedInstallationFee = 0;
+            const installKeyToLookup = determineInstallationKey(internetKey !== 'none', isBundleInternetType && tvKey !== 'none', isBundleInternetType && phoneKey !== 'none', isBundleInternetType && additionalTvKey !== 'none');
+            if(installKeyToLookup && lguData.installation_fees[installKeyToLookup]){
+                calculatedInstallationFee = lguData.installation_fees[installKeyToLookup][installationTime] || 0;
+            }
+            
+            selectedInternetEl.textContent = currentInternetDetails.name;
+            selectedTvEl.textContent = (isBundleInternetType && tvKey !== 'none' && lguData.tv_plans[tvKey]) ? lguData.tv_plans[tvKey].name : '미선택';
+            selectedAdditionalTvEl.textContent = (isBundleInternetType && additionalTvKey !== 'none' && lguData.additional_tv_options[additionalTvKey]) ? lguData.additional_tv_options[additionalTvKey].name : '미선택';
+            selectedPhoneEl.textContent = (isBundleInternetType && phoneKey !== 'none' && lguData.phone_plans[phoneKey]) ? lguData.phone_plans[phoneKey].name : '미선택';
+            selectedMobileCountEl.textContent = numMobileLines;
+            
+            const discountTypeDisplayMap = {
+                none: "결합할인 없음",
+                cham_family: "참쉬운 가족결합",
+                together_bundle: "투게더 결합",
+                internet_family_all_together: "인터넷 가족끼리 다모여 결합",
+                mvno_bundle: "알뜰폰 결합"
+            };
+            selectedDiscountTypeEl.textContent = discountTypeDisplayMap[selectedDiscountRadioValue] || selectedDiscountRadioValue;
+            installationCostResultEl.textContent = Math.round(calculatedInstallationFee).toLocaleString();
+
+            let giftCashAmount = 0;
+            if (internetKey !== 'none') {
+                const internetTypeForGift = currentInternetDetails.type; 
+                const giftKeyForCalc = internetTypeForGift + (isBundleInternetType && tvKey !== 'none' ? "번들" : "단독");
+                if (giftTableLGU[giftKeyForCalc]) {
+                    giftCashAmount = giftTableLGU[giftKeyForCalc].cash;
+                }
+            }
+            giftCashEl.textContent = giftCashAmount.toLocaleString();
+            
+            resultSection.classList.remove('hidden');
+            messageScriptSectionEl.classList.remove('hidden');
+            generateMessageScriptsLGU(totalPreDiscountMonthlyFee, selectedDiscountRadioValue === "none"); 
+        }
+
+        function generateMessageScriptsLGU(preDiscountFee, noBundleSelected) { 
+            const selectedInternetTypeValue = document.querySelector('input[name="internetType"]:checked').value;
+            const isBundleInternetType = selectedInternetTypeValue === 'bundle';
+
+            const internetKey = internetPlanEl.value;
+            const tvKey = isBundleInternetType ? tvPlanEl.value : 'none';
+            const additionalTvKey = isBundleInternetType ? additionalTvPlanEl.value : 'none';
+            const phoneKey = isBundleInternetType ? phonePlanEl.value : 'none';
+
+            const internetPlanInfo = getInternetPlanInfo(internetKey, isBundleInternetType);
+            const internetPlanText = internetPlanInfo.name !== "미선택" ? internetPlanInfo.name : "인터넷 미선택";
+            
+            let firstTvText = "U+tv 미선택";
+            if (isBundleInternetType && tvKey !== 'none' && lguData.tv_plans[tvKey]) {
+                firstTvText = lguData.tv_plans[tvKey].name;
+            }
+            
+            const additionalTvName = (isBundleInternetType && additionalTvKey !== 'none' && lguData.additional_tv_options[additionalTvKey]) ? lguData.additional_tv_options[additionalTvKey].name : "";
+            const additionalTvTextForMsg = (isBundleInternetType && additionalTvKey !== 'none') ? `\n▶️ (추가) ${additionalTvName}` : "";
+            const phonePlanTextForMsg = (isBundleInternetType && phoneKey !== 'none' && lguData.phone_plans[phoneKey]) ? `\n▶️ ${lguData.phone_plans[phoneKey].name}` : "";
+
+            const finalCalculatedMonthlyFee = finalMonthlyCostEl.textContent; 
+            const giftAmount = giftCashEl.textContent;
+            const installFee = installationCostResultEl.textContent;
+            const installTime = document.querySelector('input[name="installationTime"]:checked').value;
+            
+            let installFeeForWeekendMessage = "";
+            const currentInstallKey = determineInstallationKey(internetKey !== 'none', isBundleInternetType && tvKey !== 'none', isBundleInternetType && phoneKey !== 'none', isBundleInternetType && additionalTvKey !== 'none');
+            if (currentInstallKey && lguData.installation_fees[currentInstallKey] && installTime === 'weekend') {
+                 installFeeForWeekendMessage = (lguData.installation_fees[currentInstallKey].weekend || 0).toLocaleString();
+            }
+
+            let productDescriptionMemo = internetPlanText;
+            if (isBundleInternetType && tvKey !== 'none') productDescriptionMemo += ` + ${firstTvText}`;
+            if (isBundleInternetType && additionalTvKey !== 'none') productDescriptionMemo += ` + (추가)${additionalTvName.split('(')[0].trim()}`;
+            if (isBundleInternetType && phoneKey !== 'none' && lguData.phone_plans[phoneKey]) productDescriptionMemo += ` + ${lguData.phone_plans[phoneKey].name}`;
+
+            memoScriptEl.value = `1. 상품 : ${productDescriptionMemo}
+2. 요금 : ${preDiscountFee.toLocaleString()}원 (할인 전) / ${finalCalculatedMonthlyFee}원 (최종 예상)
+3. 사은품 : 현금 ${giftAmount}원
+4. 설치비 : ${installFee}원
+5. 기타 : 이사 여부 [  ] / 희망설치일자 [    년   월   일]`;
+            
+            let productDescriptionInfo = `▶️ ${internetPlanText}`;
+            if (isBundleInternetType && tvKey !== 'none') productDescriptionInfo += `\n▶️ ${firstTvText}`;
+            productDescriptionInfo += additionalTvTextForMsg;
+            productDescriptionInfo += phonePlanTextForMsg;
+
+            const bundleStatusText = noBundleSelected ? "결합(X)" : "결합(O)";
+
+            infoScriptEl.value = `[미소] U+ 상품 & 사은품 요약 안내
+안녕하세요, 미소 U+ 입니다.
+고객님께서 오늘 상담 받으신 상품 안내드립니다.
+${productDescriptionInfo}
+▶️ 월 ${finalCalculatedMonthlyFee}원 (${bundleStatusText}, 3년 약정)
+▶️ 현금 사은품 ${giftAmount}원
+* 혜택은 실시간으로 바뀔 수 있다는 점 안내드립니다.
+미소 드림.`;
+            
+            let productDescriptionComplete = `▶️ ${internetPlanText}`;
+            if (isBundleInternetType && tvKey !== 'none') productDescriptionComplete += `\n▶️ ${firstTvText}`;
+            productDescriptionComplete += additionalTvTextForMsg;
+            productDescriptionComplete += phonePlanTextForMsg;
+
+            completeScriptEl.value = `[미소] U+ 가입 완료 안내
+안녕하세요, 고객님. 미소 U+입니다.
+✅ 계약이 완료되었어요, 아래 내용은 계약서와 동일한 효력이 있으니 꼼꼼히 읽어주세요.
+⚠️ 3년 약정이며, 아래와 같은 상황에 해당하면 받으셨던 사은품은 환수 됩니다.
+① 1년 이내 해지/정지/명의변경
+② 요금 미납 및 사용정지
+③ 요금제 하향 (상향 시에는 환수 되지 않습니다!)
+④ 개통 1개월 이내 결제수단 지로청구서로 변경
+⚠️ 신규 가입 후 기존에 사용하시던 타사 인터넷/TV는 꼭 직접 해지 해주세요. 자동해지되지 않으며 이럴 경우 요금이 이중 부과되어요.
+⚠️ 3년 이내 해지 시 통신사 본사에 위약금 (할인 반환금) 및 면제된 설치비/장비임대료 등이 반환될 수 있어요.
+✅ 가입 상품 안내
+${productDescriptionComplete}
+▶️ 월 ${finalCalculatedMonthlyFee}원 (${bundleStatusText}, 3년 약정)
+▶️ 설치비 ${installFee}원 첫 달 합산 청구 ${installTime === 'weekday' || !installFeeForWeekendMessage || installFeeForWeekendMessage === "0" ? '' : `(주말/야간 설치 시 ${installFeeForWeekendMessage}원)`}
+▶️ 현금 사은품 ${giftAmount}원
+✅사은품은 설치 후 7일 이내 자동으로 지급되나 평일기준 5시 이전 개통 받았다고 문자 주시면 당일입금 도움드리겠습니다.
+${installTime !== 'weekday' && installFeeForWeekendMessage && installFeeForWeekendMessage !== "0" ? `-> 주말/야간 설치비는 ${installFeeForWeekendMessage}원 이십니다.` : ''}
+미소 드림.`;
+
+            sensitiveInfoLinkScriptEl.value = `[LG U+] 아래링크에 고객님의 민감정보를 입력하시면 LG U+로 고객님의 민감정보가 직접 전송됩니다
+https://miso.kr/booking/forms/secure-details?querystring=고객님 전화번호`;
+        }
+        
+        function determineInstallationKey(hasInternet, hasFirstTv, hasPhone, hasAdditionalTv) {
+            if (hasInternet) {
+                if (hasFirstTv && hasAdditionalTv) return "internet_with_tv_and_additional_tv";
+                if (hasFirstTv && hasPhone) return "internet_with_tv_and_phone";
+                if (hasFirstTv) return "internet_with_tv";
+                if (hasPhone) { 
+                    return lguData.installation_fees.internet_with_voip ? "internet_with_voip" : "internet_with_landline_phone";
+                }
+                return "internet_only";
+            } else if (hasFirstTv) { 
+                if (hasAdditionalTv && lguData.installation_fees.internet_with_tv_and_additional_tv) return "internet_with_tv_and_additional_tv"; 
+                if (hasPhone && lguData.installation_fees.internet_with_tv_and_phone) return "internet_with_tv_and_phone"; 
+                if (lguData.installation_fees.internet_with_tv) return "internet_with_tv"; 
+                return null; 
+            } else if (hasPhone) {
+                 return lguData.installation_fees.internet_with_voip ? "internet_with_voip" : null; 
+            }
+            return null; 
+        }
+
+        function copyToClipboard(elementId, feedbackElementId) {
+            const textarea = document.getElementById(elementId);
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); 
+            try {
+                document.execCommand('copy');
+                const feedbackEl = document.getElementById(feedbackElementId);
+                feedbackEl.textContent = '복사되었습니다!';
+                setTimeout(() => { feedbackEl.textContent = ''; }, 2000);
+            } catch (err) {
+                const feedbackEl = document.getElementById(feedbackElementId);
+                feedbackEl.textContent = '복사 실패';
+                 setTimeout(() => { feedbackEl.textContent = ''; }, 2000);
+            }
+            window.getSelection().removeAllRanges(); 
+        }
+        
+        document.addEventListener('DOMContentLoaded', initializeCalculator);
+
     </script>
 </body>
 </html>
